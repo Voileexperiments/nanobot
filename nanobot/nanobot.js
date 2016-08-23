@@ -1,5 +1,6 @@
 //test me baby noch einmal
 //this is a test
+//this is a second test
 
 var Discord = require("discord.js");
 var bot = new Discord.Client();
