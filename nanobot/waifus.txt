@@ -9,37 +9,21 @@ Peach
 Daisy
 Rosalina
 Narue
-Hanako Ikezawa
-Akeno Himejima
 Lady Brandish
 Samus
-Kaoru Tanamachi
 Midna
 Makoto
 Ibuki
 Sakura
 Chun Li
-Lumisa Kosugi
 Mulbruk
 Korra
-Urabe Mikoto
 Kimberly Sherring
-Peacock
-Ms. Fortune
-Ajna
-Filia
-Cerebella
-Squigly
-Valentine
-Parasoul
 Eliza
 Satsuki Kiryuin
 Ryuko
 Maya Fey
 Asuka Kazama
-Lili Rochefort
-Nina Williams
-Alisa Bosconovitch
 Mei
 Widowmaker
 Tracer
@@ -48,19 +32,13 @@ Symmetra
 D. Va
 Sombra
 Ika Masume
-Sanae Nagatsuki
-Eiko Aizawa
-Chizuru Aizawa
 Hinata
 bibby
-Alicia Melchiott
 Cirno
 Remilia Scarlet
 Flandre Scarlet
 Reimu Hakurei
 Marisa Kirisame
-Heather Mason
-Rebecca Chambers
 Lara Croft
 Shantae
 Risky Boots
@@ -81,16 +59,11 @@ Serena
 Vice Director
 Erika
 Hibari
-Crysis
 Hestia
-Yukari
-Suika
 Midori
 Aizawa
 Yggdrasill
 Mount Lady
-Scythana
-Shiho
 Diane
 Marika
 Patchouli
