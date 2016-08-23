@@ -3,6 +3,7 @@
 //this is a second test
 
 var Discord = require("discord.js");
+var request = require('request');
 var bot = new Discord.Client();
 var height = 0;
 var tinies = [];
@@ -39,6 +40,9 @@ function basicCommands(msg){
   }
   if(msg.content.startsWith(".help")){
     message(msg, "**Hello, I'm Nano! I'll be your /size assistant today!**\n\n**Commands**\n`.grow` grows me!\n`.shrink` shrinks me!\n`.shrink @target` shrinks the target\n`.squish` Squishes the target!\n`.insert` th-thats lewd!\n`.pout` Makes me pout :c\n\n**I also have other commands, but those are secrets, you'll see though!**");
+  }
+  if(msg.content.startsWith(".waifu")){
+    randomWaifu(msg);
   }
 }
 
@@ -248,6 +252,16 @@ function message(msg, s){
 
 function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function randomWaifu(msg){
+  request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/waifus.txt', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    string = body;
+    var waifu = body.split("\n")[Math.floor(Math.random()*body.split("\n").length)+1];
+    message(msg, "Your waifu is "+waifu+"!");
+  }
+  });
 }
 
 bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.Cp0O9g.XX-hhBdtAldIrD31OUwStIMwbko");
