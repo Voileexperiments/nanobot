@@ -1,3 +1,5 @@
+//test for commit purposes
+
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var height = 0;
