@@ -258,7 +258,7 @@ function randomWaifu(msg){
   request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/waifus.txt', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     string = body;
-    var waifu = body.split("\n")[Math.floor(Math.random()*body.split("\n").length)+1];
+    var waifu = body.split("\n")[Math.floor(Math.random()*body.split("\n").length)];
     message(msg, "Your waifu is "+waifu+"!");
   }
   });
