@@ -212,58 +212,21 @@ function shrink(msg){
 }
 
 function killEveryone(msg){
-  console.log("executing order 66 "+tinies.length);
-  m="There's no tinies left to squish!";
-  if(tinies.length>0){
-    m = "O-Okay! I'll squish them all!\n";
-    for(var i = 0; i<tinies.length; i++){
-      var q = "";
-      var t = tinies[i];
-      var r = Math.floor(Math.random()*12)+1;
-      console.log("crush "+t+" "+r)
-      switch (r) {
-        case 1:
-          q = "I crushed "+t+" under my bare foot! They were really crunchy c:";
-          break;
-        case 2:
-          q = t + " was really slippery! I tried to grab them but they ran away, so I just sent Sakamoto to get them :/";
-          break;
-        case 3:
-          q = t + " tried to escape through the mouse hole, so I put my foot in front of it to stop them! Then it was just easy squishing c:";
-          break;
-        case 4:
-          q = "Woah! "+t+" was tough! I had to put on my boots to crush them!";
-          break;
-        case 5:
-          q = t + " barely put up a fight, they kept begging so I just squished them quickly to get it over with *shrug*";
-          break;
-        case 6:
-          q = t + " was really tasty! I should have them with a glass of milk next time, though :/";
-          break;
-        case 7:
-          q = "I don't think I even saw " + t + ", hmm, where could they be? *crunch* Oh, whoops!";
-          break;
-        case 8:
-          q = "Yuuko told me her feet were tired after school so I let her have "+t+", I wonder what she did with them?"
-          break;
-        case 9:
-          q = t + " was really fun to chase! But I finally pinned them under my sock, sorry :c";
-          break;
-        case 10:
-          q = "I put "+t+" under a cup for later! Don't worry, though, I promise to squish you soon!";
-          break;
-        case 11:
-          q = "I think Mio said she ran into "+t+" during field day, at least she thought she did, it was kind of hard to tell from their remains :c";
-          break;
-        case 12:
-          q = "Mai said she had something 'unique' planned for "+t+", so I let her have them.";
-          break;
+  request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/kill.txt', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+    console.log("executing order 66 "+tinies.length);
+    m="There's no tinies left to squish!";
+    if(tinies.length>0){
+      m = "O-Okay! I'll squish them all!\n";
+      for(var i = 0; i<tinies.length; i++){
+        var t = tinies[i];
+        m = m + body.split("\n")[Math.floor(Math.random()*body.split("\n").length)].replace("<t>",t) + "\n";
       }
-      m = m+q+"\n";
     }
-  }
-  message(msg, "kill", m);
-  tinies = [];
+    message(msg, "kill", m);
+    tinies = [];
+    }
+  });
 }
 
 function ignoreUser(msg){
