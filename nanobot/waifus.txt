@@ -25,6 +25,7 @@ Ryuko
 Maya Fey
 Asuka Kazama
 Mei
+Mercy
 Widowmaker
 Tracer
 Zarya
@@ -58,18 +59,13 @@ Dawn
 Serena
 Vice Director
 Erika
-Hibari
 Hestia
-Midori
-Aizawa
 Yggdrasill
 Mount Lady
-Diane
 Marika
 Patchouli
 Rei
-Junko
-Annie
+Junko Enoshima
 Sabrina
 Ikaruga
 Megumi

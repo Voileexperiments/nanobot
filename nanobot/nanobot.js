@@ -44,6 +44,21 @@ function basicCommands(msg){
   if(msg.content.startsWith(".waifu")){
     randomWaifu(msg);
   }
+  if(msg.content.startsWith(".sad")||includeMultiple(["feeling sad", "feeling kinda sad"], msg.content)){
+    message(msg, "Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q");
+  }
+  if(msg.content.startsWith(".omnic")){
+    message(msg, "Is this Omnic Crisis?!? https://youtu.be/rVlhMGQgDkY?t=83")
+  }
+  if(msg.content.startsWith(".harambe")){
+    message(msg, ":( :( :(");
+  }
+  if(msg.content.startsWith(".lamulana")){
+    message(msg, "The mother of all civilizations lies in La Mulana!")
+  }
+  if(msg.content.startsWith(".q")){
+    ult(msg);
+  }
 }
 
 function interrupt(msg){
@@ -53,7 +68,10 @@ function interrupt(msg){
   if(ignoreList.indexOf(msg.author)!=-1){
     return;
   }
-  if (includeMultiple(["dick", "penis"], msg.content)) {
+  if(msg.content.startsWith("ur mom")){
+    message(msg, "oooooooooooooooooooooooooooooooo\n#gotem");
+  }
+  if (includeMultiple(["dick", "penis", "weiner", "pussy"], msg.content)) {
       message(msg, "l-lewd!");
   }
   if (includeMultiple(["nigga", "nigger"], msg.content)) {
@@ -232,6 +250,51 @@ function ignoreUser(msg){
     ignoreList[ignoreList.length]=msg.author;
   }
 }
+
+function ult(msg){
+  var q = "error";
+  switch (Math.floor(Math.random()*12)+1) {
+    case 1:
+      q = "**SQUISH! SQUISH! SQUISH!!!**";
+      break;
+    case 2:
+      q = "**SAN-DAL DOWN!**";
+      break;
+    case 3:
+      q = "**TINIES NEVER DIE!**";
+      break;
+    case 4:
+      q = "**TINIES IN THE HOLE!**";
+      break;
+    case 5:
+      q = "**SQUISHES RAIN FROM ABOVE!**";
+      break;
+    case 6:
+      q = "**N-NERF THIS!!!**";
+      break;
+    case 7:
+      q = "**OH LET'S DROP THE SQUISH!**";
+      break;
+    case 8:
+      q = "*points to mouth* **GET IN THERE!**";
+      break;
+    case 9:
+      q = "**PASS INTO THE ANUS**";
+      break;
+    case 10:
+      q = "**TIMES UP**";
+      break;
+    case 11:
+      q = "**BEEP BEEP BA-BEEP!!!**";
+      break;
+    case 12:
+      q = "**IT'S HIGH NOOOOOOOOOOOOOON >:c**";
+      break;
+    default:
+  }
+  message(msg, q);
+}
+
 
 function message(msg, s){
   for(var i = 0; i<tlist.length; i++){
