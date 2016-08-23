@@ -10,6 +10,7 @@ var height = 0;
 var tinies = [];
 var tlist = [];
 var ignoreList = [];
+var mute = [];
 
 bot.on("message", msg => {
   basicCommands(msg);
@@ -21,6 +22,16 @@ bot.on("message", msg => {
 function complexCommands(msg){
   if (msg.content.startsWith(".translate")) {
    translateMessage(msg);
+  }
+  if(msg.content.startsWith(".mute")){
+    message(msg, "mute", "O-Okay! I'm muted on this server!");
+    mute[mute.length]={server:msg.server};
+  }
+  if (msg.content.startsWith(".flip")) {
+    flipCoin(msg);
+  }
+  if (msg.content.startsWith(".roll")) {
+    rollDice(msg);
   }
 }
 
@@ -66,6 +77,9 @@ function basicCommands(msg){
   }
   if(msg.content.startsWith(".q")){
     ult(msg);
+  }
+  if(msg.content.startsWith("intro")){
+    bot.sendMessage(msg, "<System Start>\nHello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType ``.help` for assistance!");
   }
 }
 
@@ -303,13 +317,13 @@ function ult(msg){
       break;
     default:
   }
-  message(msg, q);
+  message(msg, "ultquote", q);
 }
 
 var translatetimers=[];
 
 function translateMessage(msg){
-  var toTranslate = msg.content.slice(10, -1);
+  var toTranslate = msg.content.slice(10);
   if (toTranslate.length > 200){
     message(msg, "limittranslate", "I'll only translate things 200 characters or less!");
   }
@@ -339,6 +353,11 @@ function translateMessage(msg){
 
 //message is a custom message handler
 function message(msg, command, s, pm){
+  for(var i = 0; i<mute.length; i++){
+    if(mute[i].server==msg.server){
+      return;
+    }
+  }
   if(!pm){
     pm=false;
   }
@@ -374,6 +393,24 @@ function randomWaifu(msg){
     message(msg, "waifu", "Your waifu is "+waifu+"!");
   }
   });
+}
+
+function flipCoin(msg){
+    if (Math.floor((Math.random() *2) + 1) == 1){
+        message(msg, "flip", "Heads!")
+    }
+    else{
+        message(msg, "flip", "Tails!");
+    }
+}
+
+function rollDice(msg){
+    var num = msg.content.slice(6);
+    if (isNumeric(num)){
+        message(msg, "roll", "You rolled a " + Math.floor((Math.random() * parseInt(num)) + 1));
+    } else {
+        message(msg, "rollfailed", "Invalid Format! Please use '!roll [num]")
+    };
 }
 
 bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.Cp0O9g.XX-hhBdtAldIrD31OUwStIMwbko");
