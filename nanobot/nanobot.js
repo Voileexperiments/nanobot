@@ -1,17 +1,18 @@
-//test for commit purposes
+//test me baby noch einmal
+//this is a test
 
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var height = 0;
 var tinies = [];
 var tlist = [];
- 
+
 bot.on("message", msg => {
   basicCommands(msg);
   interrupt(msg);
   shrinkGrowHandler(msg);
 });
- 
+
 function basicCommands(msg){
   if (msg.content.startsWith(".ping")) {
       message(msg, "pong!");
@@ -38,7 +39,7 @@ function basicCommands(msg){
     message(msg, "**Hello, I'm Nano! I'll be your /size assistant today!**\n\n**Commands**\n`.grow` grows me!\n`.shrink` shrinks me!\n`.shrink @target` shrinks the target\n`.squish` Squishes the target!\n`.insert` th-thats lewd!\n`.pout` Makes me pout :c\n\n**I also have other commands, but those are secrets, you'll see though!**");
   }
 }
- 
+
 function interrupt(msg){
   if (includeMultiple(["dick", "penis"], msg.content)) {
       message(msg, "l-lewd!");
@@ -56,7 +57,7 @@ function interrupt(msg){
     message(msg, "That's my show :D");
   }
 }
- 
+
 function shrinkGrowHandler(msg){
   if (msg.content.startsWith(".grow")) {
       var multiplier = 1;
@@ -88,7 +89,7 @@ function shrinkGrowHandler(msg){
     killEveryone(msg);
   }
 }
- 
+
 function growManager(msg){
   var m = "";
   switch (height) {
@@ -120,16 +121,16 @@ function growManager(msg){
   }
   message(msg, "G-Grow? Okay! I'm now "+height+" feet tall!\n"+m);
 }
- 
+
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
 });
- 
+
 bot.on("disconnected", () => {
     console.log("Disconnected! Seeya!");
     process.exit(1); //exit node.js with an error
 });
- 
+
 function includeMultiple(a, msg){
   for (var i = 0; i < a.length; i++) {
     if(msg.toLowerCase().includes(a[i])){
@@ -138,7 +139,7 @@ function includeMultiple(a, msg){
   }
   return false;
 }
- 
+
 function shrink(msg){
   console.log("shrinking "+msg.mentions[0]);
   if(tinies.length>0){
@@ -153,7 +154,7 @@ function shrink(msg){
   bot.sendMessage(msg, "Shrink! "+msg.mentions[0] + " is tiny now c:");
   return;
 }
- 
+
 function killEveryone(msg){
   console.log("executing order 66 "+tinies.length);
   m="There's no tinies left to squish!";
@@ -208,7 +209,7 @@ function killEveryone(msg){
   bot.sendMessage(msg, m);
   tinies = [];
 }
- 
+
 function message(msg, s){
   for(var i = 0; i<tlist.length; i++){
     console.log("time: "+ Date.now() + "user: "+msg.author);
@@ -225,9 +226,9 @@ function message(msg, s){
   tlist[tlist.length] = {author:msg.author, timestamp:Date.now()};
   bot.sendMessage(msg,s);
 }
- 
+
 function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
- 
+
 bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.Cp0O9g.XX-hhBdtAldIrD31OUwStIMwbko");
