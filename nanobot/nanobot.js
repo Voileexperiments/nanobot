@@ -7,6 +7,7 @@ var bot = new Discord.Client();
 var height = 0;
 var tinies = [];
 var tlist = [];
+var ignoreList = [];
 
 bot.on("message", msg => {
   basicCommands(msg);
@@ -42,6 +43,12 @@ function basicCommands(msg){
 }
 
 function interrupt(msg){
+  if(msg.content.toLowerCase().startsWith(".ignoreme")){
+    ignoreUser(msg);
+  }
+  if(ignoreList.indexOf(msg.author)!=-1){
+    return;
+  }
   if (includeMultiple(["dick", "penis"], msg.content)) {
       message(msg, "l-lewd!");
   }
@@ -209,6 +216,16 @@ function killEveryone(msg){
   }
   bot.sendMessage(msg, m);
   tinies = [];
+}
+
+function ignoreUser(msg){
+  if(ignoreList.indexOf(msg.author)!=-1){
+      message(msg, "I'll **start** interrupting you now, "+msg.author+"!");
+      ignoreList.splice(ignoreList.indexOf(msg.author), 1);
+  }else{
+    message(msg, "I'll **stop** interrupting you now, "+msg.author+"! Type .ignoreme again to stop again!");
+    ignoreList[ignoreList.length]=msg.author;
+  }
 }
 
 function message(msg, s){
