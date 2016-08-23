@@ -123,7 +123,9 @@ function interrupt(msg) {
          message(msg,"alright","I don't need you anyways\nYou don't have to tell the truth,\nCause if you do I'll tell it too.\nOh, I'll tell it too.https://www.youtube.com/watch?v=Tposx9_DNgo");
     }
     if (msg.content.toLowerCase().includes("nano") && !msg.content.includes("best girl") && !msg.content.includes("Hello, I'm Nano!")) {
-        message(msg, "nano", "That's me!");
+        if (msg.author  == "@Nano") {
+            message(msg, "nano", "That's me!");
+        }
     }
 }
 
@@ -379,7 +381,14 @@ function randomWaifu(msg) {
         if (!error && response.statusCode == 200) {
             string = body;
             var waifu = body.split("\n")[Math.floor(Math.random() * body.split("\n").length)];
-            message(msg, "waifu", "Your waifu is " + waifu + "!");
+            var blush = "";
+
+            if (waifu.toLowerCase() =="nano") {
+                blush = "\n Hey that's me! *blushes*";
+            }
+            
+            message(msg, "waifu", "Your waifu is " + waifu + "!" + blush);
+
         }
     });
 }
@@ -401,4 +410,4 @@ function rollDice(msg) {
     };
 }
 
-bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.Cp0O9g.XX-hhBdtAldIrD31OUwStIMwbko");
+bot.loginWithToken("MjE3NTA1NTYyNDI0NzcwNTYy.Cp5Ptw.jOU9e0_MfVbwH3l0XSXreipcVzA");
