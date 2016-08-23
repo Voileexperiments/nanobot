@@ -4,6 +4,7 @@
 
 var Discord = require("discord.js");
 var request = require('request');
+var googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var bot = new Discord.Client();
 var height = 0;
 var tinies = [];
@@ -14,47 +15,54 @@ bot.on("message", msg => {
   basicCommands(msg);
   interrupt(msg);
   shrinkGrowHandler(msg);
+  complexCommands(msg);
 });
+
+function complexCommands(msg){
+  if (msg.content.startsWith(".translate")) {
+   translateMessage(msg);
+  }
+}
 
 function basicCommands(msg){
   if (msg.content.startsWith(".ping")) {
-      message(msg, "pong!");
+      message(msg, "ping", "pong!");
   }
   if (msg.content.startsWith(".squish <@")) {
-      message(msg, "A-Alright! Better watch out, "+msg.mentions[0]+" I'm gonna squish you!!!");
+      message(msg, "squish", "A-Alright! Better watch out, "+msg.mentions[0]+" I'm gonna squish you!!!");
   }
   if (msg.content.startsWith(".insert <@")) {
-      message(msg, "That's so l-lewd! :flushed: Uhm... Okay then, "+msg.mentions[0]+" I'm gonna... You know.");
+      message(msg, "insert", "That's so l-lewd! :flushed: Uhm... Okay then, "+msg.mentions[0]+" I'm gonna... You know.");
   }
   if (msg.content.startsWith(".hello world")) {
-      message(msg, "Uhm... That's not very nice. Please don't say that or you'll get the squish :c");
+      message(msg, "helloworld", "Uhm... That's not very nice. Please don't say that or you'll get the squish :c");
   }
   if(msg.content.startsWith(".pout")){
-    message(msg, "*hmph!*");
+    message(msg, "pout", "*hmph!*");
   }
   if(msg.content.includes("execute order 69")){
-    message(msg, "*drops pants* >///< uhm... this is kinda awkward, "+msg.author+", but climb on in!");
+    message(msg, "order", "*drops pants* >///< uhm... this is kinda awkward, "+msg.author+", but climb on in!");
   }
   if(msg.content.toLowerCase().includes("nano") && !msg.content.includes("Hello, I'm Nano!")){
-    message(msg, "That's me!");
+    message(msg, "nano", "That's me!");
   }
   if(msg.content.startsWith(".help")){
-    message(msg, "**Hello, I'm Nano! I'll be your /size assistant today!**\n\n**Commands**\n`.grow` grows me!\n`.shrink` shrinks me!\n`.shrink @target` shrinks the target\n`.squish` Squishes the target!\n`.insert` th-thats lewd!\n`.pout` Makes me pout :c\n\n**I also have other commands, but those are secrets, you'll see though!**");
+    message(msg, "help", "**Hello, I'm Nano! I'll be your /size assistant today!**\n\n**Commands**\n`.grow` grows me!\n`.shrink` shrinks me!\n`.shrink @target` shrinks the target\n`.squish` Squishes the target!\n`.insert` th-thats lewd!\n`.pout` Makes me pout :c\n\n**I also have other commands, but those are secrets, you'll see though!**");
   }
   if(msg.content.startsWith(".waifu")){
     randomWaifu(msg);
   }
   if(msg.content.startsWith(".sad")||includeMultiple(["feeling sad", "feeling kinda sad"], msg.content)){
-    message(msg, "Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q");
+    message(msg, "sad 1800", "Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q");
   }
   if(msg.content.startsWith(".omnic")){
-    message(msg, "Is this Omnic Crisis?!? https://youtu.be/rVlhMGQgDkY?t=83")
+    message(msg, "omnic 1800", "Is this Omnic Crisis?!? https://youtu.be/rVlhMGQgDkY?t=83")
   }
   if(msg.content.startsWith(".harambe")){
-    message(msg, ":( :( :(");
+    message(msg, "harambe 600", ":( :( :(");
   }
   if(msg.content.startsWith(".lamulana")){
-    message(msg, "The mother of all civilizations lies in La Mulana!")
+    message(msg, "lamulana 600", "The mother of all civilizations lies in La Mulana!")
   }
   if(msg.content.startsWith(".q")){
     ult(msg);
@@ -69,22 +77,25 @@ function interrupt(msg){
     return;
   }
   if(msg.content.startsWith("ur mom")){
-    message(msg, "oooooooooooooooooooooooooooooooo\n#gotem");
+    message(msg, "urmom", "oooooooooooooooooooooooooooooooo\n#gotem");
   }
   if (includeMultiple(["dick", "penis", "weiner", "pussy"], msg.content)) {
-      message(msg, "l-lewd!");
+      message(msg, "lewd", "l-lewd!");
   }
   if (includeMultiple(["nigga", "nigger"], msg.content)) {
-      message(msg, "Th-thats not very nice!");
+      message(msg, "nigga", "Th-thats not very nice!");
   }
   if(includeMultiple(["katelyn brooks", "media impact", "3dpd"], msg.content)){
-    message(msg, "Y-You like that little man?");
+    message(msg, "littleman", "Y-You like that little man?");
   }
-  if (msg.content.includes("navy seal")){
-    message(msg, "What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in Shrink High, and I’ve been involved in numerous secret raids on tinies, and I have over 300 squishes. I am trained in size warfare and I’m the top smusher in the entire Academy. You are nothing to me but just another bug. I will crush out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of big girls across the glove and your IP is being traced right now so you better prepare for the squish, buggy. The squish that wipes out the pathetic little thing you call your life. You’re fucking dead, bug. I can be anywhere, anytime, and I can smush you in over seven hundred ways, and that’s just with my bare feet. Not only am I extensively trained in foot smush, but I have access to the entire arsenal of size tags and I will use it to its full extent to wipe your miserable butt off the face of the floor, you tiny little speck. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have scurried back into your mouse hole. But you couldn’t, you didn’t, and now you’re paying the price, you baka. You’re fucking dead, buggy.")
+  if (msg.content.toLowerCase().includes("navy seal")){
+    message(msg, "navyseal 600", "What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in Shrink High, and I’ve been involved in numerous secret raids on tinies, and I have over 300 squishes. I am trained in size warfare and I’m the top smusher in the entire Academy. You are nothing to me but just another bug. I will crush out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of big girls across the glove and your IP is being traced right now so you better prepare for the squish, buggy. The squish that wipes out the pathetic little thing you call your life. You’re fucking dead, bug. I can be anywhere, anytime, and I can smush you in over seven hundred ways, and that’s just with my bare feet. Not only am I extensively trained in foot smush, but I have access to the entire arsenal of size tags and I will use it to its full extent to wipe your miserable butt off the face of the floor, you tiny little speck. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have scurried back into your mouse hole. But you couldn’t, you didn’t, and now you’re paying the price, you baka. You’re fucking dead, buggy.")
   }
   if(msg.content.toLowerCase().includes("nichijou")){
-    message(msg, "That's my show :D");
+    message(msg, "nichijou", "That's my show :D");
+  }
+  if(msg.content.toLowerCase().includes("g'night")||msg.content.toLowerCase().includes("good night")){
+    message(msg, "goodnight 60", "Nighty night " + msg.author + "!");
   }
 }
 
@@ -112,7 +123,7 @@ function shrinkGrowHandler(msg){
       if(height<=0){
         height=5;
       }
-      bot.sendMessage(msg, "H-help! I'm shrinking! I'm now "+height+" feet tall!\n");
+      message(msg, "shrink", "H-help! I'm shrinking! I'm now "+height+" feet tall!\n");
     }
   }
   if(msg.content.includes("execute order 66")||msg.content.startsWith(".kill")){
@@ -149,7 +160,7 @@ function growManager(msg){
     default:
       break;
   }
-  message(msg, "G-Grow? Okay! I'm now "+height+" feet tall!\n"+m);
+  message(msg, "grow", "G-Grow? Okay! I'm now "+height+" feet tall!\n"+m);
 }
 
 bot.on("ready", () => {
@@ -182,7 +193,7 @@ function shrink(msg){
     }
   }
   tinies[tinies.length]=msg.mentions[0];
-  bot.sendMessage(msg, "Shrink! "+msg.mentions[0] + " is tiny now c:");
+  message(msg, "shrink", "Shrink! "+msg.mentions[0] + " is tiny now c:");
   return;
 }
 
@@ -237,16 +248,16 @@ function killEveryone(msg){
       m = m+q+"\n";
     }
   }
-  bot.sendMessage(msg, m);
+  message(msg, "kill", m);
   tinies = [];
 }
 
 function ignoreUser(msg){
   if(ignoreList.indexOf(msg.author)!=-1){
-      message(msg, "I'll **start** interrupting you now, "+msg.author+"!");
+      message(msg, "interrupt", "I'll **start** interrupting you now, "+msg.author+"!");
       ignoreList.splice(ignoreList.indexOf(msg.author), 1);
   }else{
-    message(msg, "I'll **stop** interrupting you now, "+msg.author+"! Type .ignoreme again to stop again!");
+    message(msg, "interrupt", "I'll **stop** interrupting you now, "+msg.author+"! Type .ignoreme again to stop again!");
     ignoreList[ignoreList.length]=msg.author;
   }
 }
@@ -295,12 +306,50 @@ function ult(msg){
   message(msg, q);
 }
 
+var translatetimers=[];
 
-function message(msg, s){
+function translateMessage(msg){
+  var toTranslate = msg.content.slice(10, -1);
+  if (toTranslate.length > 200){
+    message(msg, "limittranslate", "I'll only translate things 200 characters or less!");
+  }
+  else{
+    for(var i = 0;i<translatetimers.length; i++){
+      if(translatetimers[i].author==msg.author){
+        if(Date.now()-tlist[i].timestamp<(1000*30)){
+          message(msg, "timelimittranslate", "I'm sorry but you can only translate once every 30 seconds");
+          return;
+        }else{
+          translatetimers.splice(i, 1);
+        }
+      }
+    }
+    translatetimers[translatetimers.length] = {author:msg.author,time:Date.now()};
+    googleTranslate.translate(toTranslate, 'ja', 'en', function(err, translation) {
+      if (err){
+        console.log(err);
+        message(msg, "errortranslate", "An Error occured during translation! Check the logs");
+      }
+      else{
+        message(msg, "translate 30", "Translation: " + translation.translatedText);
+      }
+    });
+  }
+}
+
+//message is a custom message handler
+function message(msg, command, s, pm){
+  if(!pm){
+    pm=false;
+  }
+  var multiplier = 2;
+  if(isNumeric(command.split(" ")[1])){
+    multiplier = command.split(" ")[1];
+  }
+  console.log("time: "+ Date.now() + " user: "+msg.author + " command: " + command + " pm: "+pm);
   for(var i = 0; i<tlist.length; i++){
-    console.log("time: "+ Date.now() + "user: "+msg.author);
-    if(msg.author==tlist[i].author){
-      if(Date.now()-tlist[i].timestamp>2000){
+    if(msg.author==tlist[i].author && command == tlist[i].command){
+      if(Date.now()-tlist[i].timestamp>(1000*multiplier)){
         bot.sendMessage(msg, s);
         tlist[i].timestamp = Date.now();
         return;
@@ -309,7 +358,7 @@ function message(msg, s){
       }
     }
   }
-  tlist[tlist.length] = {author:msg.author, timestamp:Date.now()};
+  tlist[tlist.length] = {author:msg.author, timestamp:Date.now(), command:command};
   bot.sendMessage(msg,s);
 }
 
@@ -322,7 +371,7 @@ function randomWaifu(msg){
   if (!error && response.statusCode == 200) {
     string = body;
     var waifu = body.split("\n")[Math.floor(Math.random()*body.split("\n").length)];
-    message(msg, "Your waifu is "+waifu+"!");
+    message(msg, "waifu", "Your waifu is "+waifu+"!");
   }
   });
 }
