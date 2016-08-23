@@ -132,6 +132,7 @@ function growManager(msg){
 
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
+    bot.sendMessage("<System Start>\nHello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType ``.help` for assistance!");
 });
 
 bot.on("disconnected", () => {
