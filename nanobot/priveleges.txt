@@ -1,0 +1,44 @@
+var botMods = [];
+var modLevel = [];
+
+//should be done whenever the bot fires up
+//requests the mod file from the repository
+//then splits based on new lines; each line is a user with a specified permissoin
+//splits the line based on space: first is the user name (which must begin with @)
+//second is that user's permission level
+//if can't pull, return
+
+function aquireModLevels ()
+{
+	request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/mods.txt', function(error, response, body) 
+	{	
+		if (!error && response.statusCode == 200)
+		{
+			string = body;
+			userList = body.split("\n")'
+			
+			for (var i = 0; i < userList.length; i++)
+			{
+				var userData = userList[i].split(" ");	
+				botMods[i] = userData[0];
+				modLevel[i] = userData[1]
+
+			}
+		}
+		else
+			return;
+
+	}
+
+}
+
+//generic test
+//X is level neeeded
+
+if (modLevel[botMods.indexOf(msg.author)] > X)
+	....
+else
+{
+	message(msg, "permission", "Sorry, you don't have permission to use!")
+	return;
+}
