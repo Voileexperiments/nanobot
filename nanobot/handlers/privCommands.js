@@ -7,7 +7,13 @@ module.exports = function(app) {
                 app.message(msg, "setclear", "Clear time has been set to " + app.cleartime + " seconds");
             }
         }
+        if (msg.content.startsWith(".mute")) {
+            app.message(msg, "mute", "O-Okay! I'm muted on this server!");
+            app.mute[app.mute.length] = {
+                server: msg.server
+            };
+        }
     };
-    
+
     return module;
 };

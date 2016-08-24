@@ -7,7 +7,7 @@ module.exports = function(app) {
             app.message(msg, "ping", "pong!");
         }
         if (msg.content.startsWith(".squish <@")) {
-            app.message(msg, "squish", "A-Alright! Better watch out, " + msg.mentions[0] + " I'm gonna squish you!!!");
+            app.message(msg, "squish", "Wow! I didn't think " + msg.mentions[0] + " would smush so easily!");
         }
         if (msg.content.startsWith(".insert <@")) {
             app.message(msg, "insert", "That's so l-lewd! :flushed: Uhm... Okay then, " + msg.mentions[0] + " I'm gonna... You know.");
@@ -37,7 +37,7 @@ module.exports = function(app) {
             app.message(msg, "bestgirl", "T-Thank you! I just want to help!");
         }
         if (msg.content.startsWith(".help")) {
-            app.message(msg, "help", "**Hello, I'm Nano! I'll be your /size assistant today!**\n\n**Commands**\n`.grow` grows me!\n`.shrink` shrinks me!\n`.shrink @target` shrinks the target\n`.squish` Squishes the target!\n`.insert` th-thats lewd!\n`.pout` Makes me pout :c\n\n**I also have other commands, but those are secrets, you'll see though!**");
+            _help(msg, app);
         }
         if (msg.content.startsWith(".waifu")) {
             _randomWaifu(msg, app);
@@ -64,13 +64,13 @@ module.exports = function(app) {
             app.message(msg, "bug", "Who's a cute wittle buggy? You are " + msg.author + "!");
         }
     };
-    
+
 
     //More Complex Commands
     module.complexCommands = function (msg) {
 
     };
-    
+
     return module;
 };
 
@@ -134,6 +134,14 @@ function _ult(msg, app) {
         default:
     }
     app.message(msg,"ultquote", q);
+}
+
+function _help(msg, app){
+     app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/help.txt', function(error, response, body) {
+         if (!error && response.statusCode == 200) {
+             app.message(msg, "help", body);
+         }
+     });
 }
 
 function _shrinkGrowHandler(msg, app){
