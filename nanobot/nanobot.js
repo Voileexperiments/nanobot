@@ -10,6 +10,7 @@ var tinies = [];
 var tlist = [];
 var ignoreList = [];
 var mute = [];
+var logs = [];
 
 bot.on("message", msg => {
     basicCommands(msg);
@@ -31,7 +32,7 @@ function complexCommands(msg) {
     if (msg.content.startsWith(".flip")) {
         flipCoin(msg);
     }
-    if (msg.content.startsWith(".roll")) {
+    if (msg.content.startsWith(".roll") && !msg.content.startsWith(".rollcake")) {
         rollDice(msg);
     }
 }
@@ -45,6 +46,18 @@ function basicCommands(msg) {
     }
     if (msg.content.startsWith(".insert <@")) {
         message(msg, "insert", "That's so l-lewd! :flushed: Uhm... Okay then, " + msg.mentions[0] + " I'm gonna... You know.");
+    }
+    if (msg.content.startsWith(".nom <@")) {
+        message(msg, "nom", "Mmm you're right! " + msg.mentions[0] + " Does look tasty! I'll just nom them right now!");
+    }
+    if (msg.content.startsWith(".bind <@")) {
+        message(msg, "nom", "U-Uhmm I'm not sure how much chest support " + msg.mentions[0] + " can give, but I'll tie them up I-I guess!");
+    }
+    if (msg.content.startsWith(".rollcake") && !msg.content.startsWith(".roll ")) {
+        message(msg, "rollcake", msg.author+" Here you go!");
+    }
+    if (msg.content.startsWith(".wind")) {
+        message(msg, "wind", "D-Don't touch that!");
     }
     if (msg.content.startsWith(".hello world")) {
         message(msg, "helloworld", "Uhm... That's not very nice. Please don't say that or you'll get the squish :c");
@@ -96,22 +109,22 @@ function interrupt(msg) {
         return
     }
     if (msg.content.startsWith("ur mom")) {
-        message(msg, "urmom", "oooooooooooooooooooooooooooooooo\n#gotem");
+        message(msg, "urmom 30", "oooooooooooooooooooooooooooooooo\n#gotem");
     }
     if (includeMultiple(["dick", "penis", "weiner", "pussy"], msg.content)) {
-        message(msg, "lewd", "l-lewd!");
+        message(msg, "lewd 15", "l-lewd!");
     }
     if (includeMultiple(["nigga", "nigger"], msg.content)) {
-        message(msg, "nigga", "Th-thats not very nice!");
+        message(msg, "nigga 30", "Th-thats not very nice!");
     }
     if (includeMultiple(["katelyn brooks", "media impact", "3dpd"], msg.content)) {
-        message(msg, "littleman", "Y-You like that little man?");
+        message(msg, "littleman 30", "Y-You like that little man?");
     }
     if (msg.content.toLowerCase().includes("navy seal")) {
         message(msg, "navyseal 600", "What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in Shrink High, and I’ve been involved in numerous secret raids on tinies, and I have over 300 squishes. I am trained in size warfare and I’m the top smusher in the entire Academy. You are nothing to me but just another bug. I will crush out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of big girls across the glove and your IP is being traced right now so you better prepare for the squish, buggy. The squish that wipes out the pathetic little thing you call your life. You’re fucking dead, bug. I can be anywhere, anytime, and I can smush you in over seven hundred ways, and that’s just with my bare feet. Not only am I extensively trained in foot smush, but I have access to the entire arsenal of size tags and I will use it to its full extent to wipe your miserable butt off the face of the floor, you tiny little speck. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have scurried back into your mouse hole. But you couldn’t, you didn’t, and now you’re paying the price, you baka. You’re fucking dead, buggy.")
     }
     if (msg.content.toLowerCase().includes("nichijou")) {
-        message(msg, "nichijou", "That's my show :D");
+        message(msg, "nichijou 30", "That's my show :D");
     }
     if (msg.content.toLowerCase().includes("g'night") || msg.content.toLowerCase().includes("good night")) {
         message(msg, "goodnight 60", "Nighty night " + msg.author + "!");
@@ -121,6 +134,18 @@ function interrupt(msg) {
     }
     if(msg.content.toLowerCase().includes("its alright its okay")){
          message(msg,"alright","I don't need you anyways\nYou don't have to tell the truth,\nCause if you do I'll tell it too.\nOh, I'll tell it too.https://www.youtube.com/watch?v=Tposx9_DNgo");
+    }
+    if(includeMultiple(["jew","israel"], msg.content)){
+         message(msg, "jew 30", "Oy Vey!");
+    }
+    if(includeMultiple(["can poland into space?"], msg.content)){
+         message(msg, "poland 600", "Poland can into space :D");
+    }
+    if(includeMultiple(["to be continued"], msg.content)){
+         message(msg, "tobecontinued 600", "??? https://www.youtube.com/watch?v=-Tdu4uKSZ3M");
+    }
+    if(msg.content.toLowerCase().startsWith(".skycode")){
+         message(msg, "skycode", "¿Quién es Sombra?");
     }
     if (msg.content.toLowerCase().includes("nano") && !msg.content.includes("best girl") && !msg.content.includes("Hello, I'm Nano!")) {
         if (msg.author  == "@Nano") {
@@ -196,6 +221,7 @@ function growManager(msg) {
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     bot.sendMessage("<System Start>\nHello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType ``.help` for assistance!");
+    bot.setPlayingGame("Super Nano GTS Land", function(error){});
 });
 
 bot.on("disconnected", () => {
@@ -340,8 +366,10 @@ function translateMessage(msg) {
 
 //message is a custom message handler
 function message(msg, command, s, pm) {
+    cleanuppre(msg);
     for (var i = 0; i < mute.length; i++) {
         if (mute[i].server == msg.server) {
+            console.log("muted");
             return;
         }
     }
@@ -386,7 +414,7 @@ function randomWaifu(msg) {
             if (waifu.toLowerCase() =="nano") {
                 blush = "\n Hey that's me! *blushes*";
             }
-            
+
             message(msg, "waifu", "Your waifu is " + waifu + "!" + blush);
 
         }
@@ -410,4 +438,38 @@ function rollDice(msg) {
     };
 }
 
-bot.loginWithToken("MjE3NTA1NTYyNDI0NzcwNTYy.Cp5Ptw.jOU9e0_MfVbwH3l0XSXreipcVzA");
+function cleanuppre(msg){
+     bot.getChannelLogs(msg.channel, 10, {around:msg}, function(error, messages){
+          for(var l = 0; l<messages.length;l++){
+               logs[logs.length]=messages[l];
+          }
+          console.log("added " + messages.length);
+     });
+}
+
+function cleanup(msg){
+     for(var l = 0; l<logs.length; l++){
+          if(!okaymessages(logs[l])){
+               if(logs[l].author.id == bot.user.id){
+                    bot.deleteMessage(logs[l]);
+                    logs.splice(logs.indexOf(logs[l]),1);
+               }else{
+                    logs.splice(logs.indexOf(logs[l]),1);
+               }
+          }
+     }
+}
+setInterval(cleanup, 1 * 1000);
+
+function okaymessages(log){
+     var s = log.content;
+     if(Date.now()-log.timestamp<=30*1000){
+          return true;
+     }
+     if(s.includes("squish them all!")){
+          return true;
+     }
+     return false;
+}
+
+bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0");
