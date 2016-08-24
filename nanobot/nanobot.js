@@ -5,20 +5,22 @@ var Discord = require("discord.js");
 var request = require('request');
 var googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var bot = new Discord.Client();
-var height = 0;
-var tinies = [];
-var tlist = [];
-var ignoreList = [];
-var mute = [];
-var logs = [];
+var height = 0; //obvs
+var tinies = []; //list of tinies
+var ignoreList = []; //list of users who have requested to be ignored
+var mute = []; //list of servers Nano's muted on
+var logs = []; //cached messages for clean up
+var cleartime = 30; //interval Nano will clean up
 
 bot.on("message", msg => {
-    basicCommands(msg);
-    interrupt(msg);
-    shrinkGrowHandler(msg);
-    complexCommands(msg);
+    basicCommands(msg); //basic commands
+    interrupt(msg); //memes
+    shrinkGrowHandler(msg); //for shrinking/growing
+    complexCommands(msg); //more invovled commands
+    privCommands(msg); //commands that require a special role to activate
 });
 
+//basic commands
 function complexCommands(msg) {
     if (msg.content.startsWith(".translate")) {
         translateMessage(msg);
@@ -37,6 +39,17 @@ function complexCommands(msg) {
     }
 }
 
+//commands that require a special role to use
+function privCommands(msg){
+     if(msg.content.startsWith(".setclear")){
+          if (isNumeric(msg.content.split(" ")[1])) {
+               cleartime = msg.content.split(" ")[1];
+               message(msg, "setclear", "Clear time has been set to " + cleartime + " seconds");
+          }
+     }
+}
+
+//basic commands
 function basicCommands(msg) {
     if (msg.content.startsWith(".ping")) {
         message(msg, "ping", "pong!");
@@ -47,7 +60,7 @@ function basicCommands(msg) {
     if (msg.content.startsWith(".insert <@")) {
         message(msg, "insert", "That's so l-lewd! :flushed: Uhm... Okay then, " + msg.mentions[0] + " I'm gonna... You know.");
     }
-    if (msg.content.startsWith(".nom <@")) {
+    if (msg.content.startsWith(".nom <@")||msg.content.startsWith(".eat <@")||msg.content.startsWith(".vore <@")) {
         message(msg, "nom", "Mmm you're right! " + msg.mentions[0] + " Does look tasty! I'll just nom them right now!");
     }
     if (msg.content.startsWith(".bind <@")) {
@@ -68,7 +81,7 @@ function basicCommands(msg) {
     if (msg.content.includes("execute order 69")) {
         message(msg, "order", "*drops pants* >///< uhm... this is kinda awkward, " + msg.author + ", but climb on in!");
     }
-    if (msg.content.toLowerCase().includes("nano") && msg.content.toLowerCase().includes("best girl")) {
+    if (msg.content.toLowerCase().includes("nano") && msg.content.toLowerCase().includes("best girl") && !msg.content.toLowerCase().includes("not")) {
         message(msg, "bestgirl", "T-Thank you! I just want to help!");
     }
     if (msg.content.startsWith(".help")) {
@@ -100,6 +113,7 @@ function basicCommands(msg) {
     }
 }
 
+//memes and randoms that can be ignored
 function interrupt(msg) {
     if (msg.content.toLowerCase().startsWith(".ignoreme")) {
          console.log("IGNORE COMMAND");
@@ -110,7 +124,10 @@ function interrupt(msg) {
     }
     if (msg.content.startsWith("ur mom")) {
         message(msg, "urmom 30", "oooooooooooooooooooooooooooooooo\n#gotem");
-    }
+   }
+   if(msg.content.startsWith(".joy")){
+        message(msg, "joy", "Brad Neely's Harg Nallin Sclopio Peepio!")
+   }
     if (includeMultiple(["dick", "penis", "weiner", "pussy"], msg.content)) {
         message(msg, "lewd 15", "l-lewd!");
     }
@@ -126,7 +143,7 @@ function interrupt(msg) {
     if (msg.content.toLowerCase().includes("nichijou")) {
         message(msg, "nichijou 30", "That's my show :D");
     }
-    if (msg.content.toLowerCase().includes("g'night") || msg.content.toLowerCase().includes("good night")) {
+    if (msg.content.toLowerCase().includes("goodnight") || msg.content.toLowerCase().includes("good night")) {
         message(msg, "goodnight 60", "Nighty night " + msg.author + "!");
     }
     if (msg.content.includes("doggo")) {
@@ -154,6 +171,7 @@ function interrupt(msg) {
     }
 }
 
+//handles commands related to shrinking/growing
 function shrinkGrowHandler(msg) {
     if (msg.content.startsWith(".grow")) {
         var multiplier = 1;
@@ -186,6 +204,7 @@ function shrinkGrowHandler(msg) {
     }
 }
 
+//specific function for handling growing, and the messages related to it
 function growManager(msg) {
     var m = "";
     switch (height) {
@@ -218,17 +237,20 @@ function growManager(msg) {
     message(msg, "grow", "G-Grow? Okay! I'm now " + height + " feet tall!\n" + m);
 }
 
+//obvs
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     bot.sendMessage("<System Start>\nHello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType ``.help` for assistance!");
     bot.setPlayingGame("Super Nano GTS Land", function(error){});
 });
 
+//obvs
 bot.on("disconnected", () => {
     console.log("Disconnected! Seeya!");
     process.exit(1); //exit node.js with an error
 });
 
+//for easy multiple triggers, this is an include so it will be if these words are ANYWHERE in the message, also not case sensitive
 function includeMultiple(a, msg) {
     for (var i = 0; i < a.length; i++) {
         if (msg.toLowerCase().includes(a[i])) {
@@ -238,6 +260,7 @@ function includeMultiple(a, msg) {
     return false;
 }
 
+//shrinks a user
 function shrink(msg) {
     console.log("shrinking " + msg.mentions[0]);
     var t = "";
@@ -259,6 +282,7 @@ function shrink(msg) {
     message(msg, "shrink", t);
 }
 
+//handles .kill/execute order 66
 function killEveryone(msg) {
     request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/kill.txt', function(error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -277,6 +301,7 @@ function killEveryone(msg) {
     });
 }
 
+//handles .ignoreme
 function ignoreUser(msg) {
     if (ignoreList.indexOf(msg.author) != -1) {
          ignoreList.splice(ignoreList.indexOf(msg.author), 1);
@@ -288,6 +313,7 @@ function ignoreUser(msg) {
     console.log("boom "+ignoreList.length);
 }
 
+//handles the .q command
 function ult(msg) {
     var q = "error";
     switch (Math.floor(Math.random() * 12) + 1) {
@@ -332,13 +358,16 @@ function ult(msg) {
     message(msg, "ultquote", q);
 }
 
-var translatetimers = [];
+//translatetimers
+var tlist = []; //list of users who have translated
+var translatetimers = []; //list of their timestamps
 
 function translateMessage(msg) {
     var toTranslate = msg.content.slice(10);
     if (toTranslate.length > 200) {
         message(msg, "limittranslate", "I'll only translate things 200 characters or less!");
     } else {
+        //30 second limit
         for (var i = 0; i < translatetimers.length; i++) {
             if (translatetimers[i].author == msg.author) {
                 if (Date.now() - tlist[i].timestamp < (1000 * 30)) {
@@ -365,6 +394,10 @@ function translateMessage(msg) {
 }
 
 //message is a custom message handler
+//msg - the msg object
+//command - a command, used for distinguishing between timeouts, is in the format command or command #, # being the seconds for timeout
+//s - the message text
+//pm - whether to make this a pm (not implemented yet)
 function message(msg, command, s, pm) {
     cleanuppre(msg);
     for (var i = 0; i < mute.length; i++) {
@@ -400,10 +433,12 @@ function message(msg, command, s, pm) {
     bot.sendMessage(msg, s);
 }
 
+//checks if it's numeric
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+//grabs a random waifu
 function randomWaifu(msg) {
     request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/waifus.txt', function(error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -421,6 +456,7 @@ function randomWaifu(msg) {
     });
 }
 
+//flips a coin
 function flipCoin(msg) {
     if (Math.floor((Math.random() * 2) + 1) == 1) {
         message(msg, "flip", "Heads!")
@@ -429,6 +465,7 @@ function flipCoin(msg) {
     }
 }
 
+//rolls dice
 function rollDice(msg) {
     var num = msg.content.slice(6);
     if (isNumeric(num)) {
@@ -438,6 +475,8 @@ function rollDice(msg) {
     };
 }
 
+//clean up commands - do not touch
+//pre function to fill the log
 function cleanuppre(msg){
      bot.getChannelLogs(msg.channel, 10, {around:msg}, function(error, messages){
           for(var l = 0; l<messages.length;l++){
@@ -447,6 +486,7 @@ function cleanuppre(msg){
      });
 }
 
+//main cleanup loop
 function cleanup(msg){
      for(var l = 0; l<logs.length; l++){
           if(!okaymessages(logs[l])){
@@ -461,9 +501,10 @@ function cleanup(msg){
 }
 setInterval(cleanup, 1 * 1000);
 
+//messages that should not be cleaned up - those of which their time isn't expired or an approved message to stay forever
 function okaymessages(log){
      var s = log.content;
-     if(Date.now()-log.timestamp<=30*1000){
+     if(Date.now()-log.timestamp<=cleartime*1000){
           return true;
      }
      if(s.includes("squish them all!")){
