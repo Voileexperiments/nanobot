@@ -1,0 +1,28 @@
+{
+  "name": "nanobot",
+  "version": "1.0.0",
+  "description": "A /size/ bot",
+  "main": "nanobot.js",
+  "dependencies": {
+    "google-translate": "^1.0.6",
+    "discord.js": "^8.1.0",
+    "request": "^2.74.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panzertigervi/nanobot.git"
+  },
+  "keywords": [
+    "size"
+  ],
+  "author": "anon",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/panzertigervi/nanobot/issues"
+  },
+  "homepage": "https://github.com/panzertigervi/nanobot#readme"
+}
