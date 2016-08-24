@@ -52,7 +52,7 @@ _bot.on("message", msg => {
 //ready handler
 _bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${_bot.channels.length} channels`);
-    _bot.sendMessage("<System Start>\nHello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType ``.help` for assistance!");
+    _bot.sendMessage(_bot.channels[0], "Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType '.help` for assistance!");
     _bot.setPlayingGame("Super Nano GTS Land", function(error){});
 });
 
@@ -126,7 +126,7 @@ function _ignoreUser(msg) {
     }
     console.log("boom " + _ignoreList.length);
 }
-    
+
 //for easy multiple triggers, this is an include so it will be if these words are ANYWHERE in the message, also not case sensitive
 function _includeMultiple(a, msg) {
     for (var i = 0; i < a.length; i++) {
