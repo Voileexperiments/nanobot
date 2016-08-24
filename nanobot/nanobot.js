@@ -107,7 +107,7 @@ function _message(msg, command, s, pm) {
 //messages that should not be cleaned up - those of which their time isn't expired or an approved message to stay forever
 function _okaymessages(log){
     var s = log.content;
-    if(Date.now()-log.timestamp<=_cleartime*1000){
+    if(Date.now()-log.timestamp<= app.cleartime*1000){
         return true;
     }
     if(s.includes("squish them all!")){
@@ -171,7 +171,7 @@ setInterval(_cleanup, 1 * 1000);
 
 
 
-_bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0");
+_bot.loginWithToken("MjE3NDg2NDM3ODE2MjA1MzEy.Cp1VwA.fMHLz7OARF9YFR4qHzyVliZsIjA");
 
 //Other tokens, don't touch:
 //MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0
