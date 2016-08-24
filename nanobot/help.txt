@@ -1,0 +1,10 @@
+**My Commands**\n
+`.grow #` grows me!\n
+`.shrink` shrinks me!\n
+`.shrink @target` shrinks the target\n
+`.squish @target` Squishes the target!\n
+`.insert @target` th-thats lewd!\n
+`.nom @target` eats the target!\n
+`.pout` Makes me pout :c\n
+`.ignoreme` I'll stop interrupting you, but you can still issue commands!\n\n
+**I also have other commands, but those are secrets, you'll see though!**"
