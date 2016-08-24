@@ -7,12 +7,6 @@ module.exports = function(app) {
         if (msg.content.startsWith(".translate")) {
             _translateMessage(msg, app);
         }
-        if (msg.content.startsWith(".mute")) {
-            app.message(msg, "mute", "O-Okay! I'm muted on this server!");
-            app.mute[app.mute.length] = {
-                server: msg.server
-            };
-        }
         if (msg.content.startsWith(".flip")) {
             _flipCoin(msg, app);
         }
