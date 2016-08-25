@@ -2,7 +2,7 @@ var Discord = require("discord.js");
 var _googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var _request = require('request');
 
-var _cleartime = 1; //interval Nano will clean up
+var _cleartime = 3600; //interval Nano will clean up
 var logs = []; //cached messages for clean up
 
 var _ignoreList = []; //list of users who have requested to be ignored
