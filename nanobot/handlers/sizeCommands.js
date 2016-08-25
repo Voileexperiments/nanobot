@@ -9,7 +9,7 @@ module.exports = function(app) {
                 var s = true;
                 if (app.tinies.length > 0) {
                     for (var i = 0; i < app.tinies.length; i++) {
-                        if (tinies[i] == msg.mentions[q]) {
+                        if (app.tinies[i] == msg.mentions[q]) {
                             app.message(msg, "I-I'm sorry, but that person's already a tiny :c");
                             s = false;
                         }
@@ -108,6 +108,6 @@ module.exports = function(app) {
         }
 
     };
-    
+
     return module;
 };
