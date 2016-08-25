@@ -1,0 +1,2 @@
+.ping;~;"pong!"
+.squish;@;"Wow! I didn't think @ would smush so easily!"
