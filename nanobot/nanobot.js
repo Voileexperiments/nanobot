@@ -2,7 +2,7 @@ var Discord = require("discord.js");
 var _googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var _request = require('request');
 
-var _cleartime = 30; //interval Nano will clean up
+var _cleartime = 1; //interval Nano will clean up
 var logs = []; //cached messages for clean up
 
 var _ignoreList = []; //list of users who have requested to be ignored
@@ -146,11 +146,10 @@ function _isNumeric(n){
 //clean up commands - do not touch
 //pre function to fill the log
 function _cleanuppre(msg){
-     _bot.getChannelLogs(msg.channel, 10, {around:msg}, function(error, messages){
+     _bot.getChannelLogs(msg.channel, 20, {around:msg}, function(error, messages){
           for(var l = 0; l<messages.length;l++){
                logs[logs.length]=messages[l];
           }
-          console.log("added " + messages.length);
      });
 }
 
@@ -169,9 +168,7 @@ function _cleanup(msg){
 }
 setInterval(_cleanup, 1 * 1000);
 
-
-
-_bot.loginWithToken("MjE3NTA1NTYyNDI0NzcwNTYy.Cp5Ptw.jOU9e0_MfVbwH3l0XSXreipcVzA");
+_bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.CqATgA.f_wdTVBMh5UJBmlhF175nm8Y4Mk");
 
 //Other tokens, don't touch:
 //MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0
