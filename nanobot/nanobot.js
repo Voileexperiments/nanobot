@@ -2,34 +2,23 @@ var Discord = require("discord.js");
 var _googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var _request = require('request');
 
-var _cleartime = 3600; //interval Nano will clean up
 var logs = []; //cached messages for clean up
-
-var _ignoreList = []; //list of users who have requested to be ignored
-var _tinies = []; //list of tinies
-var _height = 0; //obvs
-var _mute = []; //list of servers Nano's muted on
-var _bot = new Discord.Client();
-var _tlist = [];
-var _translateTimers = [];
-
 
 var app = {
     googleTranslate: _googleTranslate,
     request: _request,
-    bot: _bot,
-    mute: _mute,
-    tlist: _tlist,
-    tinies: _tinies,
-    translateTimers: _translateTimers,
-    ignoreList: _ignoreList,
-    height: _height,
-    cleartime: _cleartime,
+    bot: new Discord.Client(),
+    mute: [], //list of servers Nano's muted on
+    tlist: [],
+    tinies: [],  //list of tinies
+    translateTimers: [], //timers showing the last time someone has used the translate commands
+    ignoreList: [],
+    height: 0,
+    cleartime: 3600,
     includeMultiple: _includeMultiple,
     message: _message,
     isNumeric: _isNumeric,
     ignoreUser: _ignoreUser
-
 };
 
 //app variable is ready, include our commands
@@ -40,7 +29,7 @@ var privCommands = require("./handlers/privCommands.js")(app);
 var sizeCommands = require("./handlers/sizeCommands.js")(app);
 
 //message recieved handler
-_bot.on("message", msg => {
+app.bot.on("message", msg => {
     basicCommands.getResponse(msg); //basic commands
     complexCommands.getResponse(msg); //memes
     interruptCommands.getResponse(msg); //more invovled commands
@@ -50,14 +39,14 @@ _bot.on("message", msg => {
 
 
 //ready handler
-_bot.on("ready", () => {
-    console.log(`Ready to begin! Serving in ${_bot.channels.length} channels`);
-    _bot.sendMessage(_bot.channels[0], "Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType `.help` for assistance!");
-    _bot.setPlayingGame("Super Nano GTS Land", function(error){});
+app.bot.on("ready", () => {
+    console.log(`Ready to begin! Serving in ${app.bot.channels.length} channels`);
+    app.bot.sendMessage(app.bot.channels[0], "Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType `.help` for assistance!");
+    app.bot.setPlayingGame("Super Nano GTS Land", function(error){});
 });
 
 //disconnected handler
-_bot.on("disconnected", () => {
+app.bot.on("disconnected", () => {
     console.log("Disconnected! Seeya!");
     process.exit(1); //exit node.js with an error
 });
@@ -71,8 +60,8 @@ _bot.on("disconnected", () => {
 //pm - whether to make this a pm (not implemented yet)
 function _message(msg, command, s, pm) {
     _cleanuppre(msg);
-    for (var i = 0; i < _mute.length; i++) {
-        if (_mute[i].server == msg.server) {
+    for (var i = 0; i < app.mute.length; i++) {
+        if (app.mute[i].server == msg.server) {
             console.log("muted");
             return;
         }
@@ -85,23 +74,23 @@ function _message(msg, command, s, pm) {
         multiplier = command.split(" ")[1];
     }
     console.log("time: " + Date.now() + " user: " + msg.author + " command: " + command + " pm: " + pm);
-    for (var i = 0; i < _tlist.length; i++) {
-        if (msg.author == _tlist[i].author && command == _tlist[i].command) {
-            if (Date.now() - _tlist[i].timestamp > (1000 * multiplier)) {
-                _bot.sendMessage(msg, s);
-                _tlist[i].timestamp = Date.now();
+    for (var i = 0; i < app.tlist.length; i++) {
+        if (msg.author == app.tlist[i].author && command == app.tlist[i].command) {
+            if (Date.now() - app.tlist[i].timestamp > (1000 * multiplier)) {
+                app.bot.sendMessage(msg, s);
+                app.tlist[i].timestamp = Date.now();
                 return;
             } else {
                 return;
             }
         }
     }
-    _tlist[_tlist.length] = {
+    app.tlist[app.tlist.length] = {
         author: msg.author,
         timestamp: Date.now(),
         command: command
     };
-    _bot.sendMessage(msg, s);
+    app.bot.sendMessage(msg, s);
 }
 
 //messages that should not be cleaned up - those of which their time isn't expired or an approved message to stay forever
@@ -116,15 +105,16 @@ function _okaymessages(log){
     return false;
 }
 
+//start or stop responding to the selected user
 function _ignoreUser(msg) {
-    if (_ignoreList.indexOf(msg.author) != -1) {
-        _ignoreList.splice(_ignoreList.indexOf(msg.author), 1);
+    if (app.ignoreList.indexOf(msg.author) != -1) {
+        app.ignoreList.splice(app.ignoreList.indexOf(msg.author), 1);
         _message(msg, "interrupt", "I'll **start** interrupting you now, " + msg.author + "!");
     } else {
-        _ignoreList[_ignoreList.length] = msg.author;
+        app.ignoreList[app.ignoreList.length] = msg.author;
         _message(msg, "interrupt", "I'll **stop** interrupting you now, " + msg.author + "! Type .ignoreme again to start again!");
     }
-    console.log("boom " + _ignoreList.length);
+    console.log("boom " + app.ignoreList.length);
 }
 
 //for easy multiple triggers, this is an include so it will be if these words are ANYWHERE in the message, also not case sensitive
@@ -146,7 +136,7 @@ function _isNumeric(n){
 //clean up commands - do not touch
 //pre function to fill the log
 function _cleanuppre(msg){
-     _bot.getChannelLogs(msg.channel, 20, {around:msg}, function(error, messages){
+     app.bot.getChannelLogs(msg.channel, 20, {around:msg}, function(error, messages){
           for(var l = 0; l<messages.length;l++){
                logs[logs.length]=messages[l];
           }
@@ -157,8 +147,8 @@ function _cleanuppre(msg){
 function _cleanup(msg){
      for(var l = 0; l<logs.length; l++){
           if(!_okaymessages(logs[l])){
-               if(logs[l].author.id == _bot.user.id){
-                    _bot.deleteMessage(logs[l]);
+               if(logs[l].author.id == app.bot.user.id){
+                    app.bot.deleteMessage(logs[l]);
                     logs.splice(logs.indexOf(logs[l]),1);
                }else{
                     logs.splice(logs.indexOf(logs[l]),1);
@@ -168,7 +158,7 @@ function _cleanup(msg){
 }
 setInterval(_cleanup, 1 * 1000);
 
-_bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.CqATgA.f_wdTVBMh5UJBmlhF175nm8Y4Mk");
+app.bot.loginWithToken("MjE3MzM1NjEzMzAzNTU0MDQ4.CqATgA.f_wdTVBMh5UJBmlhF175nm8Y4Mk");
 
 //Other tokens, don't touch:
 //MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0
