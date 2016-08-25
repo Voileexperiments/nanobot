@@ -18,11 +18,7 @@ module.exports = function(app) {
                     var command = commands[i].split(";");
                     
                     if ((msg.content.startsWith(".") && msg.content.includes(command[0])) || (msg.content.includes(command[0]) && command[0].indexOf(".") == -1)) {
-                        if (command[1] == "d") {
-                            app.message(msg, command[0], command[1]);
-                            return;
-                        }
-                        else if (command[1] == "@") {
+                        if (command[1] == "@") {
                             if (msg.mentions.length > 0) {
                                 var m = command[2];
                                 m = m.replace("@", msg.mentions[0]);
@@ -43,8 +39,32 @@ module.exports = function(app) {
                             app.message(msg, command[0], command[2]);
                             return;
                         }
+                        else if (command[1] == "*") {
+                            var words = command[2].split(":");
+                            var properMessage = 1;
+
+                            for (var j = 0; j < words.length; j++) {
+                                var yN = words[j].substring(0,1);
+                                var word = words[j].substring(1,words[j].length);
+
+                                console.log(yN);
+
+                                if (yN == "=") {
+                                    if (!msg.content.includes(word))
+                                        properMessage = 0;
+                                }
+                                else {
+                                    if (msg.content.includes(word))
+                                        properMessage = 0;
+                                 }
+
+                            }
+
+                            if (properMessage)
+                                app.message(msg, command[0],command[3]);
+
+                        }
                     }
-                    
 
                     i++;
                     }
