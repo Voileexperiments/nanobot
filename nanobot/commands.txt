@@ -4,10 +4,10 @@
 .nom;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
 .eat;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
 .vore;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
-.hold;@;Aww , @, come here! *picks up* You're really cute, you know that?
-.fist;@;Hey there , @, *picks up* ...Uh, you're not going to like this. **crunch**
-.feet;~;*thump* *thump* *thump* Hey! @@ Watch out below! **crunch**
-.rollcake;~; @@ Here you go!
+.hold;@;Aww, @, come here! *picks up* You're really cute, you know that?
+.fist;@;Hey there, @... *picks up* Uh, you're not going to like this. **crunch**
+.feet;~;@@ *thump* *thump* *thump* Hey! Watch out below! **crunch**
+.rollcake;~;@@ Here you go!
 .wind;~;D-Don't touch that!
 .hello world;~;Uhm... That's not very nice. Please don't say that or you'll get the squish :c
 .pout;~;*hmph!*
