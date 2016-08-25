@@ -10,8 +10,6 @@ module.exports = function(app) {
                 var commands = body.split("\n");
                 var i = 0;
 
-                console.log(body);
-
                 while (i < commands.length) {
                     //commands in the file are formated as so
                     //.command;[req. inputs];[text split up by said inputs]
@@ -19,7 +17,7 @@ module.exports = function(app) {
                     //~ indicates no contents.
                     var command = commands[i].split(";");
                     
-                    if ((msg.content.startsWith(".") && msg.content.includes(command[0])) || msg.content.includes(command[0])) {
+                    if ((msg.content.startsWith(".") && msg.content.includes(command[0])) || (msg.content.includes(command[0]) && command[0].indexOf(".") == -1)) {
                         if (command[1] == "d") {
                             app.message(msg, command[0], command[1]);
                             return;
@@ -46,8 +44,6 @@ module.exports = function(app) {
                             return;
                         }
                     }
-                    else if (msg.content.includes(command[0]))
-                        app.message(msg, "quote", command[2]);
                     
 
                     i++;
