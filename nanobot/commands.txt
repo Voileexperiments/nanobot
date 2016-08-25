@@ -16,6 +16,6 @@ execute order 69;@@;*drops pants* >///< uhm... this is kinda awkward, @ , but cl
 .sad;~;Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q
 feeling sad;~;Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q
 feeling kinda sad;~;Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q
-.intro;~;<System Start> \\n Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more! \\n Type ``.help` for assistance!
+.intro;~;<System Start> '\n' Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more! '\n' Type ``.help` for assistance!
 nano best girl;~;T-Thank you! I just want to help!
 nano worst;~;Don't make me squish you!
