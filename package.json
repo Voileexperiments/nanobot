@@ -1,0 +1,27 @@
+{
+  "name": "nanobot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "nanobot.js",
+  "dependencies": {
+    "html": "^1.0.0",
+    "jquery": "^3.1.0",
+    "node": "^0.0.0",
+    "request": "^2.74.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnDeerehehe/nanobot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnDeerehehe/nanobot/issues"
+  },
+  "homepage": "https://github.com/JohnDeerehehe/nanobot#readme"
+}
