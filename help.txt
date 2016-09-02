@@ -1,0 +1,13 @@
+**My Commands**
+
+`.grow #` grows me!
+`.shrink` shrinks me!
+`.shrink @target` shrinks the target!
+`.kill` kills all the tinies :O
+`.squish @target` squishes the target!
+`.insert @target` th-thats lewd!
+`.nom @target` eats the target!
+`.pout` Makes me pout :c
+`.ignoreme` I'll stop interrupting you, but you can still issue commands!
+
+**I also have other commands, but those are secrets, you'll see though!**"

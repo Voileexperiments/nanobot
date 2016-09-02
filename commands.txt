@@ -1,2 +1,26 @@
-.ping;~;"pong!"
-.squish;@;"Wow! I didn't think @ would smush so easily!"
+.ping;~;pong!
+.squish;@;Wow! I didn't think @ would smush so easily!
+.insert;@;That's so l-lewd! :flushed: Uhm... Okay then, @ I'm gonna... You know.
+.nom;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
+.eat;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
+.vore;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
+.hold;@;Aww, @, come here! *picks up* You're really cute, you know that?
+.fist;@;Hey there, @... *picks up* Uh, you're not going to like this. **crunch**
+.feet;@@;@ *thump* *thump* *thump* Hey! Watch out below! **crunch**
+.bind;@;U-Uhmm I'm not sure how much chest support @ can give, but I'll tie them up I-I guess!
+.rollcake;@@;@ Here you go!
+.wind;~;D-Don't touch that!
+.hello world;~;Uhm... That's not very nice. Please don't say that or you'll get the squish :c
+.pout;~;*hmph!*
+.harambe;~;:( :( :(
+.lamulana;~;The mother of all civilizations lies in La Mulana
+.omnic;~; Is this Omnic Crisis?!? https://youtu.be/rVlhMGQgDkY?t=83
+.bug;@@; Who's a cute wittle buggy? You are @ !
+execute order 69;@@;*drops pants* >///< uhm... this is kinda awkward, @ , but climb on in!
+.sad;~;Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q
+feeling sad;~;Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q
+feeling kinda sad;~;Listen to this: https://www.youtube.com/watch?v=YkGJmFjfx6Q
+.intro;~;'\n' Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more! '\n' Type ``.help` for assistance!
+nano;*;=nano:=best girl:!not;T-Thank you! I just want to help!
+nano worst;~;Don't make me squish you!
+.fun;~;N-No fun allowed!
