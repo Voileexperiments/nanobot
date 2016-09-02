@@ -4,6 +4,7 @@ var _request = require('request');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 var logs = []; //cached messages for clean up
+var userIgnore = [];
 
 var app = {
     googleTranslate: _googleTranslate,
@@ -31,12 +32,20 @@ var sizeCommands = require("./handlers/sizeCommands.js")(app);
 
 //message recieved handler
 app.bot.on("message", msg => {
-    basicCommands.getResponse(msg); //basic commands
-    complexCommands.getResponse(msg); //memes
-    interruptCommands.getResponse(msg); //more invovled commands
-    privCommands.getResponse(msg); //commands that require a special role to activate
-    sizeCommands.getResponse(msg); //commands related to growing and shrinking
 
+    var test = _checkping(msg);
+    console.log(test);
+
+
+    //if (!test) {
+        basicCommands.getResponse(msg); //basic commands
+        complexCommands.getResponse(msg); //memes
+        interruptCommands.getResponse(msg); //more invovled commands
+        privCommands.getResponse(msg); //commands that require a special role to activate
+        sizeCommands.getResponse(msg); //commands related to growing and shrinking
+    //}
+    //else
+      //  app.bot.sendMessage("That user wishes to not be pinged.");
 
     if (msg.content.startsWith(".gelbooru")) {
          _gelbooru(msg,app);
@@ -49,6 +58,11 @@ app.bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${app.bot.channels.length} channels`);
     app.bot.sendMessage(app.bot.channels[0], "Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType `.help` for assistance!");
     app.bot.setPlayingGame("Super Nano GTS Land", function(error){});
+
+    app.request("https://raw.githubusercontent.com/panzertigervi/nanobot/master/pinglist.txt", function (error, response, body) {
+        var text = body;
+        userIgnore = text.split("\n");
+    })
 });
 
 //disconnected handler
@@ -176,7 +190,7 @@ function _gelbooru (msg, a) {
 
    app.request(newLink, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body) // Show the HTML for the Google homepage.
+            //console.log(body) // Show the HTML for the Google homepage.
 
             var response = body;
             var htmls = [];
@@ -199,7 +213,7 @@ function _gelbooru (msg, a) {
                 htmls[i] = response.substring(index,index2);
                 response = response.substring(index2, response.length -1);
                 //console.log(response.length);
-                console.log(htmls[i]);
+                //console.log(htmls[i]);
                 index = response.indexOf("file_url");
                 i++;
             }
@@ -212,6 +226,23 @@ function _gelbooru (msg, a) {
     })
 }
 
+
+function _checkping (msg) {
+    var found = false;
+
+    for (var i = 0; i < userIgnore.length; i++) {
+        console.log(userIgnore[i]);
+
+
+        if (msg.content.includes(userIgnore[i]) == true) {
+            found = true;
+        }
+
+    }
+
+    console.log(found);
+    return found;
+}
 
 
 

@@ -2,7 +2,7 @@ module.exports = function(app) {
     var module = {};
     //Basic, simple commands
     module.getResponse = function (msg) {
-        app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/commands.txt', function(error, response, body) {
+        app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/commands.txt', function(error, response, body) {
         
             if (!error && response.statusCode == 200) {
                 var string = body;
@@ -99,7 +99,7 @@ module.exports = function(app) {
 
 //grabs a random waifu
 function _randomWaifu(msg, app) {
-    app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/waifus.txt', function(error, response, body) {
+    app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/waifus.txt', function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var string = body;
             var waifu = body.split("\n")[Math.floor(Math.random() * body.split("\n").length)];
@@ -160,7 +160,7 @@ function _ult(msg, app) {
 }
 
 function _help(msg, app){
-     app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/help.txt', function(error, response, body) {
+     app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/help.txt', function(error, response, body) {
          if (!error && response.statusCode == 200) {
              app.message(msg, "help", body);
          }

@@ -59,7 +59,7 @@ module.exports = function(app) {
 
         //kills all tinies
         function killEveryone() {
-            app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/nanobot/kill.txt', function(error, response, body) {
+            app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/kill.txt', function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log("executing order 66 " + app.tinies.length);
                     m = "There's no tinies left to squish!";
