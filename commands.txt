@@ -1,9 +1,9 @@
 .ping;~;pong!
 .squish;@;Wow! I didn't think @ would smush so easily!
 .insert;@;That's so l-lewd! :flushed: Uhm... Okay then, @ I'm gonna... You know.
-.nom;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
-.eat;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
-.vore;@;Mmm you're right! @ Does look tasty! I'll just nom them right now!
+.nom;@;Mmm you're right! @does look tasty! I'll just nom them right now!
+.eat;@;Mmm you're right! @does look tasty! I'll just nom them right now!
+.vore;@;Mmm you're right! @does look tasty! I'll just nom them right now!
 .hold;@;Aww, @, come here! *picks up* You're really cute, you know that?
 .fist;@;Hey there, @... *picks up* Uh, you're not going to like this. **crunch**
 .feet;@@;@ *thump* *thump* *thump* Hey! Watch out below! **crunch**

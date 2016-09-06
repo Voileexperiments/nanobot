@@ -3,11 +3,12 @@ module.exports = function(app) {
     //Basic, simple commands
     module.getResponse = function (msg) {
         app.request('https://raw.githubusercontent.com/panzertigervi/nanobot/master/commands.txt', function(error, response, body) {
-        
+
             if (!error && response.statusCode == 200) {
                 var string = body;
                 var commands = body.split("\n");
                 var i = 0;
+                var m  = "";
 
                 while (i < commands.length) {
                     //commands in the file are formated as so
@@ -18,19 +19,38 @@ module.exports = function(app) {
                     
                     if ((msg.content.startsWith(".") && msg.content.includes(command[0])) || (msg.content.includes(command[0]) && command[0].indexOf(".") == -1)) {
                         if (command[1] == "@") {
+                            m = command[2];
+                            var n = msg.content.split(" ");
+
                             if (msg.mentions.length > 0) {
-                                var m = command[2];
-                                m = m.replace("@", msg.mentions[0]);
+                                if (app.pingon)
+                                    m = m.replace("@", msg.mentions[0]);
+                                else
+                                    m = m.replace("@", msg.mentions[0].username);
+                            }
+                            else {
+                                nick = "";
+
+                                for (var i = 1; i < n.length; i++)
+                                    nick += n[i] + " ";
+
+                                m = m.replace("@", nick);
+                            }
+                                
+                                
+                                
 
                                 //var split = command[2].toString().split("@"); 
                                // var s = split[0] + msg.mentions[0] + split[1];
-                                app.message(msg, command[0], m);
-                                return;
-
-                            }
+                            app.message(msg, command[0], m);
+                            return;        
                         }
                         else if (command[1] == "@@") {
-                            var m = command[2].replace("@", msg.author);
+                            if (app.pingon)
+                                m = command[2].replace("@", msg.author.username);
+                            else
+                                m = command[2].replace("@", msg.author.username);
+
                             app.message(msg, command[0], m);
                         }
 

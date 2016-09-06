@@ -5,6 +5,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 var logs = []; //cached messages for clean up
 var userIgnore = [];
+var _pingon = true;
 
 var app = {
     googleTranslate: _googleTranslate,
@@ -20,7 +21,8 @@ var app = {
     includeMultiple: _includeMultiple,
     message: _message,
     isNumeric: _isNumeric,
-    ignoreUser: _ignoreUser
+    ignoreUser: _ignoreUser,
+    pingon: _pingon
 };
 
 //app variable is ready, include our commands
@@ -32,11 +34,6 @@ var sizeCommands = require("./handlers/sizeCommands.js")(app);
 
 //message recieved handler
 app.bot.on("message", msg => {
-
-    var test = _checkping(msg);
-    console.log(test);
-
-
     //if (!test) {
         basicCommands.getResponse(msg); //basic commands
         complexCommands.getResponse(msg); //memes
@@ -44,11 +41,14 @@ app.bot.on("message", msg => {
         privCommands.getResponse(msg); //commands that require a special role to activate
         sizeCommands.getResponse(msg); //commands related to growing and shrinking
     //}
-    //else
-      //  app.bot.sendMessage("That user wishes to not be pinged.");
-
+   // else
+    //    app.bot.sendMessage("That user wishes to not be pinged.");
+//
     if (msg.content.startsWith(".gelbooru")) {
          _gelbooru(msg,app);
+    } 
+    else if (msg.content.startsWith(".setpinging")) {
+        _setpinging(msg);
     }
 });
 
@@ -61,7 +61,9 @@ app.bot.on("ready", () => {
 
     app.request("https://raw.githubusercontent.com/panzertigervi/nanobot/master/pinglist.txt", function (error, response, body) {
         var text = body;
-        userIgnore = text.split("\n");
+
+        if (text.length != 0)
+            userIgnore = text.split("\n");
     })
 });
 
@@ -93,7 +95,7 @@ function _message(msg, command, s, pm) {
     if (_isNumeric(command.split(" ")[1])) {
         multiplier = command.split(" ")[1];
     }
-    console.log("time: " + Date.now() + " user: " + msg.author + " command: " + command + " pm: " + pm);
+    console.log("time: " + Date.now() + " user: " + msg.author + " command: " + command + " pm: " + pm + "user nick: " + msg.author.username);
     for (var i = 0; i < app.tlist.length; i++) {
         if (msg.author == app.tlist[i].author && command == app.tlist[i].command) {
             if (Date.now() - app.tlist[i].timestamp > (1000 * multiplier)) {
@@ -227,11 +229,11 @@ function _gelbooru (msg, a) {
 }
 
 
-function _checkping (msg) {
+function _checkignore (msg) {
     var found = false;
 
     for (var i = 0; i < userIgnore.length; i++) {
-        console.log(userIgnore[i]);
+        //console.log(userIgnore[i]);
 
 
         if (msg.content.includes(userIgnore[i]) == true) {
@@ -242,6 +244,17 @@ function _checkping (msg) {
 
     console.log(found);
     return found;
+}
+
+function _setpinging (msg) {
+    _pingon = !_pingon;
+
+    app.pingon = _pingon;
+
+    if(_pingon)
+        console.log("Pinging is now enabled");
+    else
+        console.log("Pinging is now disabled");
 }
 
 

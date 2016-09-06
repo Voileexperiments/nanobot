@@ -3,21 +3,26 @@ module.exports = function(app) {
     module.getResponse = function(msg){
         //shrinks a user
         function shrink() {
-            console.log("shrinking " + msg.mentions[0]);
+            //console.log("shrinking " + msg.mentions[0].username);
             var t = "";
-            for (var q = 0; q < msg.mentions.length; q++) {
+
+            var index = msg.content.indexOf(" ");
+            var m = msg.content.substring(index+1, msg.content.length);
+            var n = m.split(";");
+
+            for (var q = 0; q < n.length; q++) {
                 var s = true;
                 if (app.tinies.length > 0) {
                     for (var i = 0; i < app.tinies.length; i++) {
-                        if (app.tinies[i] == msg.mentions[q]) {
+                        if (app.tinies[i] == n[q]) {
                             app.message(msg, "I-I'm sorry, but that person's already a tiny :c");
                             s = false;
                         }
                     }
                 }
                 if (s) {
-                    app.tinies[app.tinies.length] = msg.mentions[q];
-                    t=t+"Shrink! " + msg.mentions[q] + " is tiny now c:\n";
+                    app.tinies[app.tinies.length] = n[q];
+                    t=t+"Shrink! " + n[q] + " is tiny now c:\n";
                 }
             }
             app.message(msg, "shrink", t);
@@ -85,13 +90,20 @@ module.exports = function(app) {
             if (app.height == 5) {
                 app.height = 0;
             }
-            app.height += 10 * multiplier;
-            growManager(msg);
+             
+            if (app.height == 105600) {
+                app.message(msg, "grow", "I'm already twenty miles tall! I'm not going to grow anymore.");
+            }
+            else if (app.height + 10* multiplier <= 105600) {
+                app.height += 10 * multiplier;
+                growManager(msg);
+            }
+            else {
+                app.height = 105600;
+                app.message(msg, "grow", "Twenty miles is tall enough I think!")
+            }
         }
-        if (msg.content.startsWith(".shrink <@")) {
-            shrink(msg);
-        } else {
-            if (msg.content.startsWith(".shrink")) {
+        if (msg.content.startsWith(".shrinkme")) {
                 multiplier = 1;
                 if (app.isNumeric(msg.content.split(" ")[1])) {
                     multiplier = msg.content.split(" ")[1];
@@ -102,7 +114,9 @@ module.exports = function(app) {
                 }
                 app.message(msg, "shrink", "H-help! I'm shrinking! I'm now " + app.height + " feet tall!\n");
             }
-        }
+        else if (msg.content.startsWith(".shrink"))
+            shrink(msg);
+
         if (msg.content.includes("execute order 66") || msg.content.startsWith(".kill")) {
             killEveryone(msg);
         }
