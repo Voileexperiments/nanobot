@@ -250,4 +250,4 @@ function _checkping (msg) {
 
 setInterval(_cleanup, 1 * 1000);
 
-app.bot.loginWithToken("MjIyNzA3NDkzMDk1MDc5OTM3.CrBZHA.9Rti8fecHLL2Jk6JGXcC7irfT0Y");
+app.bot.loginWithToken("MjIyNzMzODgzNDU0NTIxMzQ1.CrBsng.1d36ikqViQj83c3aZAqhthd1vVY");
