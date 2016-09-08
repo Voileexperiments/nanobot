@@ -4,11 +4,13 @@ var _request = require('request');
 var FileReader = require('filereader')
   , fileReader = new FileReader()
   ;
-//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+var XMLHttpRequest = require('xmlhttprequest');
 
 var logs = []; //cached messages for clean up
 var userIgnore = [];
 var _pingon = true;
+var setPing;
 
 var app = {
     googleTranslate: _googleTranslate,
@@ -37,14 +39,13 @@ var sizeCommands = require("./handlers/sizeCommands.js")(app);
 
 //message recieved handler
 app.bot.on("message", msg => {
-    //if (!test) {
-        console.log(app.bot.servers[0].id);
+    if (msg.server.id != "220059213441794050") {
         basicCommands.getResponse(msg); //basic commands
         complexCommands.getResponse(msg); //memes
         interruptCommands.getResponse(msg); //more invovled commands
         privCommands.getResponse(msg); //commands that require a special role to activate
         sizeCommands.getResponse(msg); //commands related to growing and shrinking
-    //}
+    }
    // else
     //    app.bot.sendMessage("That user wishes to not be pinged.");
 //
@@ -252,9 +253,11 @@ function _checkignore (msg) {
 }
 
 function _setpinging (msg) {
-    var check = 1;//;securityCheck(msg);
+    securityCheck(msg);
 
-    if (check == 3) {
+    console.log(setPing);
+
+    if (setPing == 3) {
         _pingon = !_pingon;
 
         app.pingon = _pingon;
@@ -271,18 +274,34 @@ function _setpinging (msg) {
 
  function securityCheck(msg){
     var userName = msg.author.id;
-    var returnVal = 1;
-    var reader = new FileReader();
+   // var xml = new XMLHttpRequest();
 
-    
-                    
-    return returnVal;
+    app.request("https://raw.githubusercontent.com/panzertigervi/nanobot/master/pinglist.txt", function(error,response,body) {
+        var text = body;
+        var userList = text.split("\n");
+        var found = false;
+        var i = 0;
+
+        while(!found && i < userList.length) {
+            var data = userList[i].split(" ");
+
+            if (data[0] == userName) {
+                found = true;
+                setPing = data[1];
+            }
+        }
+
+        if (!found)
+            setPing = 1;
+
+        console.log(setPing);
+    })
 }
 
 
 
 setInterval(_cleanup, 1 * 1000);
-app.bot.loginWithToken("MjIzMjA1MjE3Mjk3MTA0ODk2.CrJVug.KK85gxn10bdHuo_aIL_WXrDPdnU");
+app.bot.loginWithToken("MjE3NTA1NTYyNDI0NzcwNTYy.CrJbEQ.YBECNAcFjb7u5bcGESxQZIYIfMg");
 
 //Other tokens, don't touch:
 //MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0
