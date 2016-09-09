@@ -16,5 +16,32 @@ module.exports = function(app) {
             };
         }
     };
+
     return module;
 };
+
+//security checks
+function _securityCheck(app, msg){
+     var botmasters=[];
+     for(var i = 0; i < app.bot.servers.length; i++){
+         for(var r = 0; r < app.bot.servers[i].roles.length; r++){
+              var s = app.bot.servers[i].roles[r].name;
+              if(s=="Bot_Mechanic"||s=="Moderator"||s=="Bot Master"){
+                  botmasters[botmasters.length]=app.bot.servers[i].roles[r].id;
+                  console.log(botmasters.length);
+              }
+         }
+     }
+     var priv=false;
+     for(var i = 0; i < botmasters.length; i++){
+         if(app.bot.memberHasRole(msg.author, botmasters[i])){
+              priv=true;
+         }
+     }
+     if(!priv){
+         console.log("priveledge failed!");
+         return false;
+    }
+    console.log("priveledge passed!");
+    return true;
+}

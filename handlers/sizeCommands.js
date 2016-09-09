@@ -9,29 +9,23 @@ module.exports = function(app) {
             var index = msg.content.indexOf(" ");
             var m = msg.content.substring(index+1, msg.content.length);
             var n = m.split(";");
-            var s = true;
 
-            if (index != -1) {
-                for (var q = 0; q < n.length; q++) {                    
-                    console.log(n[q], s);
-
-                    if (app.tinies.length > 0) {
-                        for (var i = 0; i < app.tinies.length; i++) {
-                            if (app.tinies[i] == n[q]) {
-                                t = t+"I-I'm sorry, but that person's already a tiny :c\n";
-                                s = false;
-                            }
+            for (var q = 0; q < n.length; q++) {
+                var s = true;
+                if (app.tinies.length > 0) {
+                    for (var i = 0; i < app.tinies.length; i++) {
+                        if (app.tinies[i] == n[q]) {
+                            app.message(msg, "I-I'm sorry, but that person's already a tiny :c");
+                            s = false;
                         }
                     }
-                    if (s) {
-                        app.tinies[app.tinies.length] = n[q];
-                        t=t+"Shrink! " + n[q] + " is tiny now c:\n";
-                    }
-
-                    s = true;
                 }
-                app.message(msg, "shrink", t);
-            }   
+                if (s) {
+                    app.tinies[app.tinies.length] = n[q];
+                    t=t+"Shrink! " + n[q] + " is tiny now c:\n";
+                }
+            }
+            app.message(msg, "shrink", t);
         }
 
         //specific function for handling growing, and the messages related to it
@@ -88,10 +82,7 @@ module.exports = function(app) {
         }
 
         var multiplier;
-
-        var messageSplit = msg.content.split(" ");
-
-        if (messageSplit[0] == ".grow") {
+        if (msg.content.startsWith(".grow")) {
             multiplier = 1;
             if (app.isNumeric(msg.content.split(" ")[1])) {
                 multiplier = msg.content.split(" ")[1];
@@ -112,7 +103,7 @@ module.exports = function(app) {
                 app.message(msg, "grow", "Twenty miles is tall enough I think!")
             }
         }
-        if (messageSplit[0] == ".shrinkme") {
+        if (msg.content.startsWith(".shrinkme")) {
                 multiplier = 1;
                 if (app.isNumeric(msg.content.split(" ")[1])) {
                     multiplier = msg.content.split(" ")[1];
@@ -123,7 +114,7 @@ module.exports = function(app) {
                 }
                 app.message(msg, "shrink", "H-help! I'm shrinking! I'm now " + app.height + " feet tall!\n");
             }
-        else if (messageSplit[0] == ".shrink")
+        else if (msg.content.startsWith(".shrink"))
             shrink(msg);
 
         if (msg.content.includes("execute order 66") || msg.content.startsWith(".kill")) {

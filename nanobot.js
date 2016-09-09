@@ -1,10 +1,7 @@
 var Discord = require("discord.js");
 var _googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var _request = require('request');
-var FileReader = require('filereader')
-  , fileReader = new FileReader()
-  ;
-//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 var logs = []; //cached messages for clean up
 var userIgnore = [];
@@ -38,7 +35,6 @@ var sizeCommands = require("./handlers/sizeCommands.js")(app);
 //message recieved handler
 app.bot.on("message", msg => {
     //if (!test) {
-        console.log(app.bot.servers[0].id);
         basicCommands.getResponse(msg); //basic commands
         complexCommands.getResponse(msg); //memes
         interruptCommands.getResponse(msg); //more invovled commands
@@ -62,7 +58,6 @@ app.bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${app.bot.channels.length} channels`);
     app.bot.sendMessage(app.bot.channels[0], "Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType `.help` for assistance!");
     app.bot.setPlayingGame("Super Nano GTS Land", function(error){});
-    app.bot.nickname = "Nano";
 
     app.request("https://raw.githubusercontent.com/panzertigervi/nanobot/master/pinglist.txt", function (error, response, body) {
         var text = body;
@@ -252,39 +247,24 @@ function _checkignore (msg) {
 }
 
 function _setpinging (msg) {
-    var check = 1;//;securityCheck(msg);
+    _pingon = !_pingon;
 
-    if (check == 3) {
-        _pingon = !_pingon;
+    app.pingon = _pingon;
 
-        app.pingon = _pingon;
-
-
-        if(_pingon)
-            console.log("Pinging is now enabled");
-        else
-            console.log("Pinging is now disabled");
-    }
+    if(_pingon)
+        console.log("Pinging is now enabled");
     else
-        console.log("You are not permitted to use that command.");
+        console.log("Pinging is now disabled");
 }
 
- function securityCheck(msg){
-    var userName = msg.author.id;
-    var returnVal = 1;
-    var reader = new FileReader();
 
-    
-                    
-    return returnVal;
-}
 
 
 
 setInterval(_cleanup, 1 * 1000);
-app.bot.loginWithToken("MjIzMjA1MjE3Mjk3MTA0ODk2.CrJVug.KK85gxn10bdHuo_aIL_WXrDPdnU");
+
+app.bot.loginWithToken("MjE3NTA1NTYyNDI0NzcwNTYy.Cp5Ptw.jOU9e0_MfVbwH3l0XSXreipcVzA");
 
 //Other tokens, don't touch:
 //MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0
 //MjE3NDg2NDM3ODE2MjA1MzEy.Cp1VwA.fMHLz7OARF9YFR4qHzyVliZsIjA
-//MjE3NTA1NTYyNDI0NzcwNTYy.Cp5Ptw.jOU9e0_MfVbwH3l0XSXreipcVzA
