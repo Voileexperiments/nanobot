@@ -1,13 +1,16 @@
 **My Commands**
 
-`.grow #` grows me!
+`.grow #` grows me! .grow X grows by X*10 feet
 `.shrink` shrinks me!
-`.shrink @target` shrinks the target!
+`.shrink target` shrinks the target! To shrink multiple people, use a ; between names
 `.kill` kills all the tinies :O
 `.squish @target` squishes the target!
 `.insert @target` th-thats lewd!
 `.nom @target` eats the target!
 `.pout` Makes me pout :c
 `.ignoreme` I'll stop interrupting you, but you can still issue commands!
+`.gelbooru` Queries gelbooru. Tags must follow gelbooru and multiple tags are seperated by a +
+`.waifu` Returns a random waifu. Will be improved shortly :)
 
 **I also have other commands, but those are secrets, you'll see though!**"
+**Nano\Mio bot made by userDNE, panzer, and JohnDeere**

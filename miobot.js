@@ -56,7 +56,7 @@ app.bot.on("message", msg => {
 //ready handler
 app.bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${app.bot.channels.length} channels`);
-    app.bot.sendMessage(app.bot.channels[0], "Hello! I'm Nano, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType `.help` for assistance!");
+    app.bot.sendMessage(app.bot.channels[0], "Hello! I'm Mio, you're automatic /size discord assistant! I can grow, shrink, squish, and much more!\nType `.help` for assistance!");
     app.bot.setPlayingGame("Super Nano GTS Land", function(error){});
 
     app.request("https://raw.githubusercontent.com/panzertigervi/nanobot/master/pinglist.txt", function (error, response, body) {
@@ -221,12 +221,7 @@ function _gelbooru (msg, a) {
             }
 
             var r = Math.floor(Math.random() * htmls.length);
-            var s = htmls[r];
-
-            if (htmls.length == 0)
-                s = "Sorry, I couldn't find what you asked for."
-
-            _message(msg, "gelbooru", s);   
+            _message(msg, "gelbooru", htmls[r]);   
 
         } 
 
@@ -264,15 +259,11 @@ function _setpinging (msg) {
 
 
 
-<<<<<<< HEAD
 
 
 setInterval(_cleanup, 1 * 1000);
 
-app.bot.loginWithToken("Bot MjIzMjA1MjE3Mjk3MTA0ODk2.CrJVug.KK85gxn10bdHuo_aIL_WXrDPdnU");
+app.bot.loginWithToken("Bot MjE3NTA1NTYyNDI0NzcwNTYy.CrPLTg.7kbwdKM1wsHkDxQdZLf_11iiMcQ");
 //Other tokens, don't touch:
 //MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0
 //MjE3NDg2NDM3ODE2MjA1MzEy.Cp1VwA.fMHLz7OARF9YFR4qHzyVliZsIjA
-=======
-app.bot.loginWithToken("MjIyNzMzODgzNDU0NTIxMzQ1.CrBsng.1d36ikqViQj83c3aZAqhthd1vVY");
->>>>>>> refs/remotes/origin/master
