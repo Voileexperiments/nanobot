@@ -1,5 +1,4 @@
 var Discord = require("discord.js");
-var _googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var _request = require('request');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -8,7 +7,6 @@ var userIgnore = [];
 var _pingon = true;
 
 var app = {
-    googleTranslate: _googleTranslate,
     request: _request,
     bot: new Discord.Client(),
     mute: [], //list of servers Nano's muted on
@@ -264,15 +262,8 @@ function _setpinging (msg) {
 
 
 
-<<<<<<< HEAD
 
 
 setInterval(_cleanup, 1 * 1000);
 
-app.bot.loginWithToken("Bot MjIzMjA1MjE3Mjk3MTA0ODk2.CrJVug.KK85gxn10bdHuo_aIL_WXrDPdnU");
-//Other tokens, don't touch:
-//MjE3MzM1NjEzMzAzNTU0MDQ4.Cp518g.j6oFZhzTXGHfQw3XetGpqiQdUA0
-//MjE3NDg2NDM3ODE2MjA1MzEy.Cp1VwA.fMHLz7OARF9YFR4qHzyVliZsIjA
-=======
 app.bot.loginWithToken("MjIyNzMzODgzNDU0NTIxMzQ1.CrBsng.1d36ikqViQj83c3aZAqhthd1vVY");
->>>>>>> refs/remotes/origin/master
