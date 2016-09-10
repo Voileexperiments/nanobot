@@ -1,5 +1,4 @@
 var Discord = require("discord.js");
-var _googleTranslate = require('google-translate')("AIzaSyBaVwET_J2d0YTSUV1R-AQ-ke7M2vqXKPc");
 var _request = require('request');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -8,7 +7,6 @@ var userIgnore = [];
 var _pingon = true;
 
 var app = {
-    googleTranslate: _googleTranslate,
     request: _request,
     bot: new Discord.Client(),
     mute: [], //list of servers Nano's muted on
